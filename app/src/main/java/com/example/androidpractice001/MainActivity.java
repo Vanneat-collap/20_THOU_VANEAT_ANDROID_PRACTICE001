@@ -16,13 +16,9 @@ import android.widget.Toast;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getName();
-    public static final String EXTRA_NAME ="com.example.androidpractice001.NAME";
-    public static final String EXTRA_AGE ="com.example.androidpractice001.AGE";
-    public static final String EXTRA_UNIVERSITY ="com.example.androidpractice001.UNIVERSITY";
 
     private EditText editName,editAge,editUniversity;
 
-    TextView btn;
     Button btnRegister;
 
     @SuppressLint("MissingInflatedId")
@@ -31,7 +27,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        btn=findViewById(R.id.registerText);
         editName=findViewById(R.id.edit_name);
         editAge = findViewById(R.id.edit_age);
         editUniversity = findViewById(R.id.edit_university);
@@ -42,18 +37,16 @@ public class MainActivity extends AppCompatActivity {
                 checkCredentials();
             }
         });
-
-         btn.setOnClickListener((v)->{
-             startActivity(new Intent(MainActivity.this,RegisterformActivity.class));
-         });
     }
 
 private void checkCredentials(){
-    Intent intent= new Intent(this,RegisterformActivity.class);
         String name = editName.getText().toString();
         String age = editAge.getText().toString();
         String university = editUniversity.getText().toString();
 
+        User user =new User(name,age,university);
+
+        Intent intent= new Intent(this,RegisterformActivity.class);
         if (name.isEmpty())
         {
             showError(editName,"Name is empty");
@@ -68,9 +61,7 @@ private void checkCredentials(){
         }
         else
         {
-            intent.putExtra(EXTRA_NAME,name);
-            intent.putExtra(EXTRA_AGE,age);
-            intent.putExtra(EXTRA_UNIVERSITY,university);
+            intent.putExtra("user",user);
 
             startActivity(intent);
         }

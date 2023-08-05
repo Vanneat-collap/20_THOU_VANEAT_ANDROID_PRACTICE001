@@ -12,6 +12,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 public class RegisterformActivity extends AppCompatActivity {
+
+    TextView textName, textAge, textUniversity;
     Button closeBtn;
     private static final String TAG=RegisterformActivity.class.getName();
 
@@ -21,19 +23,14 @@ public class RegisterformActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registerform);
 
+       textName = findViewById(R.id.get_name);
+       textAge = findViewById(R.id.get_age);
+       textUniversity = findViewById(R.id.get_university);
 
-        Intent intent= getIntent();
-        String name = intent.getStringExtra(MainActivity.EXTRA_NAME);
-        String age = intent.getStringExtra(MainActivity.EXTRA_AGE);
-        String university = intent.getStringExtra(MainActivity.EXTRA_UNIVERSITY);
-
-        TextView textName = findViewById(R.id.get_name);
-        TextView textAge = findViewById(R.id.get_age);
-        TextView textUniversity = findViewById(R.id.get_university);
-        textName.setText("Name :  " + name);
-        textAge.setText("Age :  " + age);
-        textUniversity.setText("University :  " + university);
-
+        User user=getIntent().getParcelableExtra("user");
+        textName.setText("Name : " + user.name);
+        textAge.setText("Age : " + user.age);
+        textUniversity.setText("University : " + user.university);
 
         closeBtn=(Button) findViewById(R.id.close_btn);
         closeBtn.setOnClickListener(new View.OnClickListener() {
